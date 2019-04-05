@@ -1,18 +1,28 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h2 class="todoist-title">관리함</h2>
+    <TodoList :todos="getTodos"></TodoList>
+    <AddTodoWrap :inputDate="today" inputState="new"></AddTodoWrap>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import TodoList from '@/components/TodoList.vue';
+import AddTodoWrap from '@/components/AddTodoWrap.vue';
 export default {
   name: 'home',
+  data : function(){
+    return {
+      today : new Date()
+    }
+  },
   components: {
-    HelloWorld
+    TodoList,AddTodoWrap
+  },
+  computed: {
+    getTodos() {
+      return this.$store.getters.getTodos;
+    },
   }
 }
 </script>
