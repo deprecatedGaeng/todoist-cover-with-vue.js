@@ -1,45 +1,45 @@
 <template>
     <div class="todo-input">
-			<div class="todo-input__contents-wrap">
-				<input class="todo-input__contents todo-input__contents--new"
-					type="text"
-					@keypress.13="addTodo({todoContents,todoDate})"
-					v-model="todoContents"
-					v-if="modeState === 'new'"
-				>
-				<input class="todo-input__contents todo-input__contents--edit"
-					type="text"
-					@keypress.13="updateTodo({todoContents,todoDate,todoCreatedAt})"
-					v-model="todoContents"
-					v-else
-				>
-				<datepicker
-					format="yyyyMMdd"
-					placeholder="일정"
-					v-model="todoDate"
-					name="datepicker"
-					class="datepicker-wrap"
-				>
-				</datepicker>
-			</div>
-			<div class="todo-input__btn-wrap">
-				<button v-if="modeState === 'new'"
-					class="todo-input__btn todo-input__btn--add"
-					@click="addTodo({todoContents,todoDate})"
-				>
-					작업 추가
-				</button>
-				<button v-else
-					class="todo-input__btn todo-input__btn--add"
-					@click="updateTodo({todoContents,todoDate,todoCreatedAt})"
-				>
-					확인
-				</button>
-				<button class="todo-input__btn"
-					@click="hideEditWrap()"
-				>취소</button>
-			</div>
+		<div class="todo-input__contents-wrap">
+			<input class="todo-input__contents todo-input__contents--new"
+				type="text"
+				@keypress.13="addTodo({todoContents,todoDate})"
+				v-model="todoContents"
+				v-if="modeState === 'new'"
+			>
+			<input class="todo-input__contents todo-input__contents--edit"
+				type="text"
+				@keypress.13="updateTodo({todoContents,todoDate,todoCreatedAt})"
+				v-model="todoContents"
+				v-else
+			>
+			<datepicker
+				format="yyyyMMdd"
+				placeholder="일정"
+				v-model="todoDate"
+				name="datepicker"
+				class="datepicker-wrap"
+			>
+			</datepicker>
 		</div>
+		<div class="todo-input__btn-wrap">
+			<button v-if="modeState === 'new'"
+				class="todo-input__btn todo-input__btn--add"
+				@click="addTodo({todoContents,todoDate})"
+			>
+				작업 추가
+			</button>
+			<button v-else
+				class="todo-input__btn todo-input__btn--add"
+				@click="updateTodo({todoContents,todoDate,todoCreatedAt})"
+			>
+				확인
+			</button>
+			<button class="todo-input__btn"
+				@click="hideEditWrap()"
+			>취소</button>
+		</div>
+	</div>
 </template>
 <style lang="scss">
 .todo-input__contents-wrap{
@@ -101,7 +101,8 @@ export default {
 		'propDate',
 		'propModeState',
 		'propContents',
-		'propCreatedAt'
+		'propCreatedAt',
+		'propHub'
 	],
 	data(){
 		return {
@@ -109,6 +110,7 @@ export default {
 			todoContents : this.propContents,
 			todoCreatedAt : this.propCreatedAt,
 			modeState : this.propModeState,
+			eventHub : this.propHub,
 			parentElement : this.propCreatedAt ? `#item${this.propCreatedAt}` : '.add-todo'
 		}
 	},
@@ -137,7 +139,8 @@ export default {
 		},
 		hideEditWrap(){
 			if(this.modeState === 'new'){
-				EventBus.$emit('showInput',false)
+				console.log(this.eventHub)
+				this.eventHub.$emit('showInput',false)
 				this.clearInput()
 			}else{
 				if(this.parentElement){

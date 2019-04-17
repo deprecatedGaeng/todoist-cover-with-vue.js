@@ -8,7 +8,7 @@
         + 작업 추가
       </div>
       <div class="add-todo__input">
-        <TodoInput :propDate="inputDate" :propModeState="inputState"></TodoInput>
+        <TodoInput :propDate="inputDate" :propModeState="inputState" :propHub="EventHub"></TodoInput>
       </div>
     </div>
 </template>
@@ -28,11 +28,11 @@
 }
 </style>
 <script>
+import Vue from 'vue'
 import TodoInput from '@/components/TodoInput.vue'
-import { EventBus } from "@/utils/eventBus"
 export default {
   created() {
-    EventBus.$on("showInput", bool => {
+    this.EventHub.$on("showInput", bool => {
       this.showInput = bool;
     });
   },
@@ -42,7 +42,8 @@ export default {
   props : ['inputDate','inputState'],
   data(){
     return {
-      showInput : false
+      showInput : false,
+      EventHub : new Vue()
     }
   },
   methods : {
