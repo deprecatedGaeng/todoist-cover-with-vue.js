@@ -8,4 +8,4 @@
 - 👉 Vuex를 이용한 상태관리를 학습니다.
 
 
-![메인](./src/assets/main.png)
+![메인](https://github.com/gaenglovesdev/todoist-cover-with-vue.js/blob/master/src/assets/main.PNG)
